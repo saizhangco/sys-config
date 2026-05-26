@@ -1,4 +1,12 @@
 <template>
+  <!-- 顶部工具栏：新增按钮 + 搜索 -->
+  <v-toolbar color="transparent" flat class="mb-3">
+    <v-btn color="primary" @click="onPageChange">查詢
+    </v-btn>
+    <v-btn color="primary" @click="onPageChange">匯出
+    </v-btn>
+    <v-spacer />
+  </v-toolbar>
   <v-data-table-server
     :headers="headers"
     hide-default-footer

@@ -23,16 +23,13 @@
 
   const itemsPerPage = ref(5)
   const headers = ref([
-    { title: '時間', key: 'opTime', align: 'start', sortable: false },
+    { title: '時間', key: 'optionTime', align: 'start', sortable: false },
     { title: '藥品代號', key: 'medicineId', align: 'start', sortable: false },
     { title: '藥品名稱', key: 'medicineName', align: 'start', sortable: false },
     { title: '銷毀數量', key: 'optionQty', align: 'start', sortable: false },
     { title: '操作人員', key: 'userId', align: 'start', sortable: false },
     { title: '覆核人員', key: 'userId2', align: 'start', sortable: false },
     { title: '藥櫃名稱', key: 'terminalId', align: 'start', sortable: false },
-    { title: '銷毀記錄', key: 'optionId', align: 'start', sortable: false },
-    { title: '藥品編號', key: 'medicineId', align: 'start', sortable: false },
-    { title: '药柜编号', key: 'terminalId', align: 'end', sortable: false },
   ])
   const serverItems = ref([])
   const loading = ref(true)

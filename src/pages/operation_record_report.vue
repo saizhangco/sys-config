@@ -15,7 +15,8 @@
       total-visible="7"
       @update:model-value="onPageChange(page)"
     />
-  </div></template>
+  </div>
+</template>
 
 <script setup>
   import axios from 'axios'
@@ -23,7 +24,7 @@
 
   const itemsPerPage = ref(5)
   const headers = ref([
-    { title: '時間', key: 'datetime', align: 'start', sortable: false },
+    { title: '時間', key: 'actionTime', align: 'start', sortable: false },
     { title: '藥櫃代號', key: 'terminalId', align: 'start', sortable: false },
     { title: '操作人員', key: 'userId', align: 'start', sortable: false },
     { title: '操作', key: 'actionId', align: 'end', sortable: false },
