@@ -128,7 +128,7 @@
     // await fetchList()
   }
 
-  const itemsPerPage = ref(5)
+  const itemsPerPage = ref(6)
   const headers = ref([
     { title: '儲位編號', key: 'boxId', align: 'start', sortable: false },
     { title: '藥品編號', key: 'medicineId', align: 'start', sortable: false },
