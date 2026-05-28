@@ -56,6 +56,13 @@
             </v-col>
             <v-col cols="4">
               <v-select
+                v-model="form.m11"
+                :items="['', 'y', 'n']"
+                label="取消領藥"
+              ></v-select>
+            </v-col>
+            <v-col cols="4">
+              <v-select
                 v-model="form.m20"
                 :items="['', 'y', 'n']"
                 label="補藥"
@@ -80,6 +87,27 @@
                 v-model="form.m50"
                 :items="['', 'y', 'n']"
                 label="空瓶置放"
+              ></v-select>
+            </v-col>
+            <v-col cols="4">
+              <v-select
+                v-model="form.m60"
+                :items="['', 'y', 'n']"
+                label="設定"
+              ></v-select>
+            </v-col>
+            <v-col cols="4">
+              <v-select
+                v-model="form.m70"
+                :items="['', 'y', 'n']"
+                label="報表"
+              ></v-select>
+            </v-col>
+            <v-col cols="4">
+              <v-select
+                v-model="form.m99"
+                :items="['', 'y', 'n']"
+                label="退出系統"
               ></v-select>
             </v-col>
           </v-row>
@@ -108,10 +136,14 @@
     form.roleId = row.roleId
     form.m00 = row.m00
     form.m10 = row.m10
+    form.m10 = row.m11
     form.m20 = row.m20
     form.m30 = row.m30
     form.m40 = row.m40
     form.m50 = row.m50
+    form.m50 = row.m60
+    form.m50 = row.m70
+    form.m50 = row.m99
     console.log(form.roleId)
     dialogVisible.value = true
   }
@@ -120,10 +152,14 @@
     roleId: '',
     m00: '',
     m10: '',
+    m11: '',
     m20: '',
     m30: '',
     m40: '',
     m50: '',
+    m60: '',
+    m70: '',
+    m99: '',
   })
   // 关闭弹窗
   const closeDialog = () => {
@@ -155,10 +191,14 @@
     { title: '', key: 'role', align: 'start', sortable: false },
     { title: '儀表板', key: 'm00', align: 'start', sortable: false },
     { title: '取藥', key: 'm10', align: 'start', sortable: false },
+    { title: '取消領藥', key: 'm11', align: 'start', sortable: false },
     { title: '補藥', key: 'm20', align: 'start', sortable: false },
     { title: '點班', key: 'm30', align: 'start', sortable: false },
     { title: '稽核', key: 'm40', align: 'start', sortable: false },
     { title: '空瓶置放', key: 'm50', align: 'start', sortable: false },
+    { title: '設定', key: 'm60', align: 'start', sortable: false },
+    { title: '報表', key: 'm70', align: 'start', sortable: false },
+    { title: '退出系統', key: 'm99', align: 'start', sortable: false },
     { title: '操作', key: 'action', width: '140', sortable: false },
   ])
   const serverItems = ref([])

@@ -153,7 +153,7 @@
         const items = response.data.data
         serverItems.value = items
         totalItems.value = response.data.count
-        pageCount.value = Math.ceil(response.data.count / page_size)
+        pageCount.value = 6
         loading.value = false
       },
       error => {

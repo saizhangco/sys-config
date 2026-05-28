@@ -1,27 +1,30 @@
 <template>
-  <v-data-table-server
-    :headers="headers"
-    hide-default-footer
-    :items="serverItems"
-    :items-length="totalItems"
-    :items-per-page="itemsPerPage"
-    :loading="loading"
-    no-data-text="暫無數據"
-  />
-  <div class="d-flex align-center justify-end text-center pt-2">
-    <v-pagination
-      v-model="page"
-      :length="pageCount"
-      total-visible="7"
-      @update:model-value="onPageChange(page)"
+  <div class="table-parent-container">
+    <v-data-table-server
+      :headers="headers"
+      class="full-height-table"
+      hide-default-footer
+      :items="serverItems"
+      :items-length="totalItems"
+      :items-per-page="itemsPerPage"
+      :loading="loading"
+      no-data-text="暫無數據"
     />
+    <div class="d-flex align-center justify-end text-center pt-2">
+      <v-pagination
+        v-model="page"
+        :length="pageCount"
+        total-visible="7"
+        @update:model-value="onPageChange(page)"
+      />
+    </div>
   </div></template>
 
 <script setup>
   import axios from 'axios'
   import { ref } from 'vue'
 
-  const itemsPerPage = ref(5)
+  const itemsPerPage = ref(10)
   const headers = ref([
     { title: '日期', key: 'optionTime', align: 'start', sortable: false },
     { title: '藥品代號', key: 'medicineId', align: 'start', sortable: false },
@@ -35,7 +38,7 @@
   const page = ref(1)
   const pageCount = ref(0)
   const numbers = ref([10, 25, 50, 100])
-  function loadItems (page_num = 1, page_size = 5) {
+  function loadItems (page_num = 1, page_size = 10) {
     loading.value = true
     page_num = page_num - 1
     axios.get('/api/option_result/list?page=' + page_num + '&size=' + page_size).then(
@@ -62,3 +65,25 @@
   }
   loadItems(page.value, itemsPerPage.value)
 </script>
+<style>
+  /* 父容器：占满可用空间 */
+  .table-parent-container {
+    width: 100%;
+    height: 100%; /* 关键：父容器必须有高度 */
+    display: flex;
+    flex-direction: column;
+    overflow: hidden; /* 防止滚动条溢出 */
+  }
+
+  /* 表格：填满父容器 */
+  .full-height-table {
+    flex: 1; /* flex 子元素占满剩余高度 */
+    width: 100%;
+    height: 100%;
+  }
+
+  /* 强制表格内部容器 100% 高 */
+  .full-height-table :deep(.v-data-table__wrapper) {
+    height: 100%;
+  }
+</style>

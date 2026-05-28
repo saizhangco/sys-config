@@ -2,7 +2,7 @@
   <v-container>
     <!-- 顶部工具栏：新增按钮 + 搜索 -->
     <v-toolbar color="transparent" flat class="mb-3">
-      <v-spacer />
+      <!-- <v-spacer /> -->
       <v-btn color="primary"
         :class="{
           'text-center': true,
@@ -92,13 +92,15 @@
   }
 
   function split () {
-    alert('分割(' + d.value._layerIndex + ',' + d.value._startIndex + ',' + d.value._endIndex + ')')
+    // alert('分割(' + d.value._layerIndex + ',' + d.value._startIndex + ',' + d.value._endIndex + ')')
     splitItems(d.value._layerIndex, d.value._startIndex, d.value._endIndex - d.value._startIndex)
+    resetIndex()
   }
 
   function merge () {
-    alert('合併(' + d.value._layerIndex + ',' + d.value._startIndex + ',' + d.value._endIndex + ')')
+    // alert('合併(' + d.value._layerIndex + ',' + d.value._startIndex + ',' + d.value._endIndex + ')')
     mergeItems(d.value._layerIndex, d.value._startIndex, d.value._endIndex - d.value._startIndex)
+    resetIndex()
   }
 
   const box = ref([[]])

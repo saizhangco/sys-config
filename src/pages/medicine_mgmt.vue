@@ -36,6 +36,7 @@
 
       <!-- 操作列：删除按钮 -->
       <template #item.action="{ item }">
+        <div class="d-flex gap-2">
         <v-btn
           color="primary"
           size="small"
@@ -49,6 +50,7 @@
           size="small"
           @click="handleDelete(item)"><v-icon left>mdi-delete</v-icon> 删除
         </v-btn>
+        </div>
       </template>
   </v-data-table-server>
   <div class="d-flex align-center justify-end text-center pt-2">
@@ -206,7 +208,7 @@
     })
   }
 
-  const itemsPerPage = ref(5)
+  const itemsPerPage = ref(10)
   const headers = ref([
     { title: '藥品編號', key: 'medicineId', align: 'start', sortable: false },
     { title: '圖片', key: 'photo', align: 'end', sortable: false },

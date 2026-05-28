@@ -11,11 +11,11 @@
 </script>
 
 <style>
-#app {
-  width: 1440px;
-  height: 900px;
-  transform-origin: top left;
+/* #app {
+  /* width: 1440px;
+  height: 900px; */
+  /* transform-origin: top left;
   transform: scale(calc(100vw / 1440));
-  overflow: hidden;
-}
+  overflow: hidden; 
+} */
 </style>
