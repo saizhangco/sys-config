@@ -17,7 +17,7 @@
           'bg-normal': true}"
         @click="merge()"
       ><v-icon left>mdi-plus</v-icon>
-        合并
+        合併
       </v-btn>
     </v-toolbar>
     <v-data-table

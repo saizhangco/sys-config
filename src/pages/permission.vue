@@ -16,7 +16,7 @@
           class="me-2"
           @click="openEditDialog(item)"
         >
-          <v-icon left>mdi-pencil</v-icon>编辑
+          <v-icon left>mdi-pencil</v-icon>編輯
         </v-btn>
       </template>
   </v-data-table-server>

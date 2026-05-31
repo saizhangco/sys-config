@@ -1,7 +1,8 @@
 <template>
-  <v-container>
-    <div class="medicine-wrapper">
-      <!-- 顶部统计栏 -->
+  <div>
+    <h2>藥櫃名稱 W01</h2>
+    <!-- <div class="medicine-wrapper">
+      <!-- 顶部统计栏
       <div class="header-stats">
         <div class="stat-card taken">
           <div class="stat-label">管藥已取數量</div>
@@ -16,9 +17,9 @@
           <div class="stat-number">5</div>
         </div>
       </div>
-    </div>
+    </div> -->
     <v-data-table
-      class="elevation-1 table-bordered"
+      class="table-bordered"
       density="compact"
       :headers="headers"
       hide-default-footer
@@ -30,13 +31,17 @@
       <template v-for="(layer, layerIndex) in box">
         <tr class="text-no-wrap">
           <template v-for="(item, index) in layer">
-            <td v-if="item.box!=0" :colspan="item.box" style="padding: 0 2px">
+            <td v-if="item.box!=0" :colspan="item.box" style="margin: 2px 2px; background-color:aliceblue;">
               <div class="medicine-item">
                 <div class="medicine-info">
                   <div class="med-id">{{ item.name }}</div>
                   <div class="med-name">藥名: {{ item.medicineName }}</div>
                   <div class="med-stock">庫存量: {{ item.quantity }}</div>
                   <div class="med-max">最大量: {{ item.maxQuantity }}</div>
+
+                </div>
+                <div><img style="width: 40px; height: 80px;" 
+                    :src="`https://www2.vghks.gov.tw/DIWEB/dIDrug.do?method=readFile&hid=1A0&path=drugimages/${item.medicineId}.jpg`" alt="">
                 </div>
               </div>
             </td>
@@ -44,7 +49,7 @@
         </tr>
       </template>
     </v-data-table>
-  </v-container>
+  </div>
 </template>
 
 <script setup>
@@ -137,12 +142,13 @@
 </script>
 <style>
   .table-bordered >>> th.table-bordered >>> td {
-    border: 1px solid rgba(0, 0, 0, 0.12) !important; /* 设置边框颜色和样式 */
-    padding: 0;
+    border: 10px solid rgba(0, 0, 0, 0.12) !important; /* 设置边框颜色和样式 */
+    padding: 10px 10px;
+    margin: 10px 10px;
   }
 
   .table-bordered >>> thead th {
-    border-bottom: 2px solid rgba(0, 0, 0, 0.12) !important; /* 加粗表头下边框 */
+    border-bottom: 0px solid rgba(0, 0, 0, 0.12) !important; /* 加粗表头下边框 */
   }
 
   .active {
@@ -195,7 +201,6 @@
   /* 每个药品格子：宽度严格固定 = 和图片完全一样 */
   .medicine-item {
     width: 100%; /* 自动填满父容器分配的宽度 */
-    height: 150px;     /* 严格对照图片固定高度 */
     padding: 10px 12px;
     border: 1px solid #ccc;
     border-radius: 4px;
@@ -223,8 +228,19 @@
   .med-name {
     font-size: 13px;
     white-space: pre-wrap;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; /* 超出显示省略号 */
+    /* 建议加宽度限制，否则不会触发截断 */
+    width: 100px; 
+    display: block;
   }
   .med-stock, .med-max {
     font-size: 13px;
+  }
+  /* 固定宽高，图片拉伸填满容器 */
+  .img-box img {
+    width: 20px;
+    height: 15px;
   }
 </style>

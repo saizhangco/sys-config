@@ -1,4 +1,5 @@
 <template>
+  <h2>收支結存報表</h2>
   <v-data-table-server
     :headers="headers"
     hide-default-footer
@@ -21,7 +22,7 @@
   import axios from 'axios'
   import { ref } from 'vue'
 
-  const itemsPerPage = ref(5)
+  const itemsPerPage = ref(10)
   const headers = ref([
     { title: '藥櫃', key: 'terminalId', align: 'start', sortable: false },
     { title: '藥品代號', key: 'medicineId', align: 'start', sortable: false },
@@ -41,7 +42,7 @@
   function loadItems (page_num = 1, page_size = 5) {
     loading.value = true
     page_num = page_num - 1
-    axios.get('/api/statement/income_and_expenditure_balance?page=' + page_num + '&size=' + page_size).then(
+    axios.get('/api/statement/income_and_expenditure_balance?page=' + page_num + '&pageSize=' + page_size).then(
       response => {
         console.log(response.data)
         const items = response.data.data

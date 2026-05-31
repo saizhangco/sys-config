@@ -1,5 +1,6 @@
 <template>
   <v-data-table-server
+    :class="mc-table"
     :headers="headers"
     hide-default-footer
     :items="serverItems"
@@ -17,7 +18,7 @@
           class="me-2"
           @click="openEditDialog(item)"
         >
-          <v-icon left>mdi-pencil</v-icon>编辑
+          <v-icon left>mdi-pencil</v-icon>編輯
         </v-btn>
       </template>
   </v-data-table-server>
@@ -42,10 +43,12 @@
         <v-container class="pa-0">
           <v-row dense>
             <v-col cols="12">
-              <v-text-field
+              <!-- 下拉选择框 -->
+              <v-select
                 v-model="form.medicineId"
                 label="藥品編號"
-              ></v-text-field>
+                :items="options"
+              ></v-select>
             </v-col>
             <v-col cols="4">
               <v-text-field
@@ -147,7 +150,7 @@
   function loadItems (page_num = 1, page_size = 5) {
     loading.value = true
     page_num = page_num - 1
-    axios.get('/api/box/medicine/contents?page=' + page_num + '&size=' + page_size).then(
+    axios.get('/api/box/medicine/contents?page=' + page_num + '&pageSize=' + page_size).then(
       response => {
         console.log(response.data)
         const items = response.data.data
@@ -169,5 +172,38 @@
   function sel (page_size = 10) {
     loadItems(page.value, page_size)
   }
+
+  // 下拉选项数组
+  const options = ref([])
+  // 从服务器获取下拉数据
+  const getSelectData = async () => {
+    loading.value = true
+    axios.get('/api/box/queryMedicineIdList').then(
+      response => {
+        console.log(response.data)
+        const items = response.data.data
+        options.value = items
+        loading.value = false
+      },
+      error => {
+        alert(error)
+      },
+    ).catch(error => {
+      console.error(error)
+    })
+  }
+
   loadItems(page.value, itemsPerPage.value)
+  getSelectData()
 </script>
+<style>
+  /* 所有 tr 行高变大 */
+  .mc-table >>> tr {
+    height: 80px; /* 自行修改数值 */
+  }
+
+  /* 配合单元格内边距，留白更美观 */
+  .mc-table >>> td th {
+    padding: 10px;
+  }
+</style>

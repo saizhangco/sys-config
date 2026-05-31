@@ -34,6 +34,11 @@
         <br><span class="text-xs text-grey">{{ item.scienceName }}</span>
       </template>
 
+      <template #item.photo="{ item }">
+        <img style="width: 80px; height: 80px;" 
+                    :src="`https://www2.vghks.gov.tw/DIWEB/dIDrug.do?method=readFile&hid=1A0&path=drugimages/${item.medicineId}.jpg`" alt="">
+      </template>
+
       <!-- 操作列：删除按钮 -->
       <template #item.action="{ item }">
         <div class="d-flex gap-2">
@@ -43,7 +48,7 @@
           class="me-2"
           @click="openEditDialog(item)"
         >
-          <v-icon left>mdi-pencil</v-icon>编辑
+          <v-icon left>mdi-pencil</v-icon>編輯
         </v-btn>
         <v-btn
           color="red"
@@ -208,7 +213,7 @@
     })
   }
 
-  const itemsPerPage = ref(10)
+  const itemsPerPage = ref(5)
   const headers = ref([
     { title: '藥品編號', key: 'medicineId', align: 'start', sortable: false },
     { title: '圖片', key: 'photo', align: 'end', sortable: false },
@@ -227,7 +232,7 @@
   function loadItems (page_num = 1, page_size = 5) {
     loading.value = true
     page_num = page_num - 1
-    axios.get('/api/medicine/list?page=' + page_num + '&size=' + page_size).then(
+    axios.get('/api/medicine/list?page=' + page_num + '&pageSize=' + page_size).then(
       response => {
         console.log(response.data)
         const items = response.data.data
