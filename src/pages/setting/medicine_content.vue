@@ -141,7 +141,7 @@
 
   const itemsPerPage = ref(6)
   const headers = ref([
-    { title: '儲位編號', key: 'id.boxId', align: 'start', sortable: false },
+    { title: '藥盒代號', key: 'id.boxId', align: 'start', sortable: false },
     { title: '藥品編號', key: 'medicineId', align: 'start', sortable: false },
     { title: '藥品名稱', key: 'description', align: 'start', sortable: false },
     { title: '現存量', key: 'quantity', align: 'start', sortable: false },

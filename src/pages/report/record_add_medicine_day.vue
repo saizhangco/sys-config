@@ -84,7 +84,8 @@
         endDate: queryParams.endDate,
         page: queryParams.page-1,
         pageSize: queryParams.pageSize,
-        terminalId: queryParams.terminalId
+        terminalId: queryParams.terminalId,
+        optionType: 3
       }
     }).then(
       response => {

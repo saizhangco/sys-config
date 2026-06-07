@@ -20,7 +20,7 @@
         合併
       </v-btn>
     </v-toolbar>
-    <v-data-table
+    <!-- <v-data-table
       class="elevation-1 table-bordered"
       density="compact"
       :headers="headers"
@@ -38,9 +38,9 @@
                 block
                 :class="{
                   'text-center': true,
-                  'bg-success': item.box == 1,
-                  'bg-warning': item.box == 2,
-                  'bg-error': item.box == 3,
+                  'bg-success': item.box == 1 && layerIndex != 0,
+                  'bg-warning': item.box == 2 && layerIndex != 0,
+                  'bg-error': item.box == 3 && layerIndex != 0,
                   'active': layerIndex === d._layerIndex && index >= d._startIndex && index + item.box <= d._endIndex
                 }"
                 @click="toggleChecked(layerIndex, index, item.box)"
@@ -51,7 +51,44 @@
           </template>
         </tr>
       </template>
-    </v-data-table>
+    </v-data-table> -->
+  <!-- 原生表格，替代 v-data-table -->
+  <table 
+    class="elevation-1 table-bordered"
+    style="width: 100%; table-layout: fixed; border-collapse: collapse;"
+  >
+    <tbody>
+      <tr 
+        v-for="(layer, layerIndex) in box" 
+        :key="layerIndex"
+        class="row-fixed-height"
+      >
+        <template v-for="(item, index) in layer" :key="index">
+          <td 
+            v-if="item.box !== 0" 
+            :colspan="item.box"
+            style="padding: 0 2px; border: 1px solid #ddd;"
+            class="cell-fixed-height"
+          >
+            <v-btn
+              block
+              :disabled="layerIndex == 0"
+              :class="{
+                'text-center': true,
+                'bg-success': item.box == 1 && layerIndex !=0,
+                'bg-warning': item.box == 2 && layerIndex !=0,
+                'bg-error': item.box == 3  && layerIndex !=0,
+                'active': layerIndex === d._layerIndex && index >= d._startIndex && index + item.box <= d._endIndex
+              }"
+              @click="toggleChecked(layerIndex, index, item.box)"
+            >
+              {{ item.name }}
+            </v-btn>
+          </td>
+        </template>
+      </tr>
+    </tbody>
+  </table>
   </v-container>
 </template>
 
@@ -64,6 +101,15 @@
     _endIndex: -1,
     _layerIndex: -1,
   })
+
+  headers: [
+    { text: '', value: 'col1', width: '16.666%' },
+    { text: '', value: 'col2', width: '16.666%' },
+    { text: '', value: 'col3', width: '16.666%' },
+    { text: '', value: 'col4', width: '16.666%' },
+    { text: '', value: 'col5', width: '16.666%' },
+    { text: '', value: 'col6', width: '16.666%' },
+  ]
 
   function toggleChecked (layerIndex, index, size) {
     if (d.value._layerIndex == -1) {
@@ -106,6 +152,7 @@
   const box = ref([[]])
 
   function mergeItems (layerIndex, index, size) {
+    layerIndex = layerIndex - 1
     axios.get('/api/box/merge?layerIndex=' + layerIndex + '&index=' + index + '&size=' + size).then(
       response => {
         loadItems ()
@@ -119,6 +166,7 @@
   }
 
   function splitItems (layerIndex, index, size) {
+    layerIndex = layerIndex - 1
     axios.get('/api/box/split?layerIndex=' + layerIndex + '&index=' + index + '&size=' + size).then(
       response => {
         loadItems ()
@@ -135,6 +183,15 @@
     axios.get('/api/box/setting').then(
       response => {
         box.value = response.data.data
+        box.value.unshift([
+            {box: 1, name: '第一列'},
+            {box: 1, name: '第二列'},
+            {box: 1, name: '第三列'},
+            {box: 1, name: '第四列'},
+            {box: 1, name: '第五列'},
+            {box: 1, name: '第六列'},
+          ])
+        console.log(box.value)
       },
       error => {
         alert(error)
@@ -157,5 +214,28 @@
 
 .active {
   background-color: rgb(232, 236, 12);
+}
+
+/* 1. 整行固定高度（按需改数值，比如 36px / 40px） */
+.row-fixed-height {
+  height: 36px !important;
+}
+/* 2. 单元格继承行高，消除默认内边距 */
+.cell-fixed-height {
+  height: 100% !important;
+  padding: 0 2px !important;
+  margin: 0 !important;
+  vertical-align: middle; /* 垂直居中 */
+  /* 6列均分，根据你实际列数改 */
+  width: 16.666% !important;
+}
+/* 3. 按钮填满单元格，不额外撑高 */
+.btn-full {
+  height: 100% !important;
+  min-height: unset !important;
+  padding: 0 4px !important;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 </style>
