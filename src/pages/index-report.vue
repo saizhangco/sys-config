@@ -54,13 +54,14 @@
 </template>
 <script setup>
   import { ref } from 'vue'
-  import ReportAddMedicineDay from './record_add_medicine_day.vue'
-  import ReportDestroyMedicineDay from './record_destroy_medicine_day.vue'
-  import ReportGetMedicineDay from './record_get_medicine_day.vue'
-  import ReportReturnMedicineDay from './record_return_medicine_day.vue'
-  import IncomeAndExpenditureBalanceStatement from './income_and_expenditure_balance_statement.vue'
-  import DrugConsumptionDailyReport from "./drug_consumption_daily_report.vue"
-  import OperationRecordReport from "./operation_record_report.vue"
+  import ReportAddMedicineDay from './report/record_add_medicine_day.vue'
+  import ReportDestroyMedicineDay from './report/record_destroy_medicine_day.vue'
+  // 取藥日報表
+  import ReportGetMedicineDay from './report/record_get_medicine_day.vue'
+  import ReportReturnMedicineDay from './report/record_return_medicine_day.vue'
+  import IncomeAndExpenditureBalanceStatement from './report/income_and_expenditure_balance_statement.vue'
+  import DrugConsumptionDailyReport from "./report/drug_consumption_daily_report.vue"
+  import OperationRecordReport from "./report/operation_record_report.vue"
 
   const tab = ref('報表')
 </script>

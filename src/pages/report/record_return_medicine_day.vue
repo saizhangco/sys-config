@@ -1,5 +1,5 @@
 <template>
-  <h2>銷毀日報表</h2>
+  <h2>取消領藥日報表</h2>
   <!-- 顶部工具栏：新增按钮 + 搜索 -->
   <v-toolbar color="transparent" flat class="mb-3">
     查詢條件
@@ -9,6 +9,7 @@
       label="藥櫃"
       :items="options"
       style="width: 100px;"
+      :disabled="disabledFlag"
     ></v-select>
     <v-date-input
       v-model="queryParams.startDate"
@@ -45,21 +46,27 @@
   import axios from 'axios'
   import { ref, reactive } from 'vue'
   import { VDateInput } from 'vuetify/labs/VDateInput'
+  import { useRoute } from 'vue-router'
+
+  // 获取路由实例
+  const route = useRoute()
+  const disabledFlag = ref(!!route.params.terminalId)
   // 1. 查询参数（日期 + 分页）
   const queryParams = reactive({
     startDate: '', // 开始日期 YYYY-MM-DD
     endDate: '',   // 结束日期 YYYY-MM-DD
-    terminalId: 'W01',
+    terminalId: route.params.terminalId,
     page: 1,
     pageSize: 8
   })
+  
 
   const itemsPerPage = ref(5)
   const headers = ref([
     { title: '時間', key: 'optionTime', align: 'start', sortable: false },
     { title: '藥品代號', key: 'medicineId', align: 'start', sortable: false },
     { title: '藥品名稱', key: 'medicineName', align: 'start', sortable: false },
-    { title: '銷毀數量', key: 'optionQty', align: 'start', sortable: false },
+    { title: '取消數量', key: 'optionQty', align: 'start', sortable: false },
     { title: '操作人員', key: 'userId', align: 'start', sortable: false },
     { title: '覆核人員', key: 'userId2', align: 'start', sortable: false },
     { title: '藥櫃名稱', key: 'terminalId', align: 'start', sortable: false },
@@ -72,7 +79,7 @@
   const numbers = ref([10, 25, 50, 100])
   function loadItems () {
     loading.value = true
-    axios.get('/api/option_result/list',{
+    axios.get('/api/option_result/list/cancelMedicine',{
       params: {
         startDate: queryParams.startDate,
         endDate: queryParams.endDate,
@@ -83,8 +90,7 @@
     }).then(
       response => {
         console.log(response.data)
-        const items = response.data.data
-        serverItems.value = items
+        serverItems.value = response.data.data
         totalItems.value = response.data.count
         pageCount.value = Math.ceil(response.data.count / queryParams.pageSize)
         loading.value = false
@@ -96,13 +102,16 @@
       console.error(error)
     })
   }
+
   function onPageChange () {
     loadItems()
   }
+
   function sel () {
     loadItems()
   }
-    // 下拉选项数组
+
+  // 下拉选项数组
   const options = ref([])
   // 从服务器获取下拉数据
   const getSelectData = async () => {

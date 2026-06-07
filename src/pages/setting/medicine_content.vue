@@ -42,13 +42,19 @@
       <v-card-text>
         <v-container class="pa-0">
           <v-row dense>
-            <v-col cols="12">
+            <v-col cols="8">
               <!-- 下拉选择框 -->
               <v-select
                 v-model="form.medicineId"
                 label="藥品編號"
                 :items="options"
               ></v-select>
+            </v-col>
+            <v-col cols="4">
+              <v-text-field
+                v-model="form.id.boxId"
+                disabled
+              ></v-text-field>
             </v-col>
             <v-col cols="4">
               <v-text-field
@@ -91,7 +97,7 @@
   // 打开编辑
   const openEditDialog = (row) => {
     isEdit.value = true
-    form.boxId = row.boxId
+    form.id.boxId = row.id.boxId
     form.medicineId = row.medicineId
     form.maxQuantity = row.maxQuantity
     form.quantity = row.quantity
@@ -99,7 +105,9 @@
   }
   // 表单
   const form = reactive({
-    boxId: '',
+    id: {
+      boxId: ''
+    },
     medicineId: '',
     quantity:  0,
     maxQuantity: 0,
@@ -133,7 +141,7 @@
 
   const itemsPerPage = ref(6)
   const headers = ref([
-    { title: '儲位編號', key: 'boxId', align: 'start', sortable: false },
+    { title: '儲位編號', key: 'id.boxId', align: 'start', sortable: false },
     { title: '藥品編號', key: 'medicineId', align: 'start', sortable: false },
     { title: '藥品名稱', key: 'description', align: 'start', sortable: false },
     { title: '現存量', key: 'quantity', align: 'start', sortable: false },

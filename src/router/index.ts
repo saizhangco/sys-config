@@ -23,7 +23,7 @@ const router = createRouter({
       component: Index,
     },
     {
-      path: '/report',
+      path: '/report/:terminalId',
       component: IndexReport,
     },
     {

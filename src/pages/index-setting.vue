@@ -33,10 +33,10 @@
 </template>
 <script setup>
   import { ref } from 'vue'
-  import MedicineMgmt from './medicine_mgmt.vue'
-  import TerminalConfig from './terminal_config.vue'
-  import MedicineContent from './medicine_content.vue'
-  import Permission from './permission.vue'
+  import MedicineMgmt from './setting/medicine_mgmt.vue'
+  import TerminalConfig from './setting/terminal_config.vue'
+  import MedicineContent from './setting/medicine_content.vue'
+  import Permission from './setting/permission.vue'
 
   const tab = ref('報表')
 </script>

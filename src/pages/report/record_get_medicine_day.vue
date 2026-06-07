@@ -10,6 +10,7 @@
         label="藥櫃"
         :items="options"
         style="width: 100px;"
+        :disabled="disabledFlag"
       ></v-select>
       <v-date-input
         v-model="queryParams.startDate"
@@ -48,11 +49,16 @@
   import axios from 'axios'
   import { ref, reactive } from 'vue'
   import { VDateInput } from 'vuetify/labs/VDateInput'
+  import { useRoute } from 'vue-router'
+
+  // 获取路由实例
+  const route = useRoute()
+  const disabledFlag = ref(!!route.params.terminalId)
   // 1. 查询参数（日期 + 分页）
   const queryParams = reactive({
     startDate: '', // 开始日期 YYYY-MM-DD
     endDate: '',   // 结束日期 YYYY-MM-DD
-    terminalId: 'W01',
+    terminalId: route.params.terminalId,
     page: 1,
     pageSize: 8
   })

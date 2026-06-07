@@ -21,7 +21,7 @@
 </template>
 <script setup>
   import { ref } from 'vue'
-  import Dashboard from './dashboard2.vue'
+  import Dashboard from './dashboard/dashboard2.vue'
 
   const tab = ref('報表')
 </script>
